@@ -1,0 +1,72 @@
+#!/bin/sh
+# xshbar
+# customizable xsetroot bar for window managers
+# written by speedie, licensed under GNU GPLv3.
+
+XSHBAR_INIT()
+{
+  XSHBAR_VERS=0.1
+  printf "xshbar has started." && XSHBAR_VAR_HASSTARTED=true
+}
+
+XSHBAR_CREATE_DOTDIR_ENV()
+{
+  case "$(whoami)" in
+  "root") XSHBAR_DIE ;;
+  esac
+  ls ~/.config/xshbar > /dev/null || mkdir -pv ~/.config/xshbar/plugins
+  ls ~/.config/xshbar/prn > /dev/null || printf "XSHBAR_CORE_DISPLAY=xshbar-$XSHBAR_VERS" > ~/.config/xshbar/prn
+  printf "XSHBAR_BIN_DIR=/usr/bin\nUPDATEFREQ=1\nPLUGDIR=~/.config/xshbar/plugins.use" > ~/.config/xshbar/config
+}
+
+XSHBAR_SOURCE()
+{
+  . ~/.config/xshbar/config || . $XSHBAR_VAR_DOTDIR/config # Import config
+  XSHBAR_IMPORT || . $PLUGDIR/* # Import plugins, sourcing the file is a legacy support thing
+  . ~/.config/xshbar/prn || . $XSHBAR_VAR_DOTDIR/prn # Import print buffer
+}
+
+XSHBAR_IMPORT()
+{
+  printf "Plugin system has loaded.\n"
+  # To load plugins, add one line for each plugin
+  # Example: '. $PLUGDIR/yourplugin.plugin'
+}
+
+case "$testprint" in
+"") echo "WARNING: Test plugin not present. If you're not sure how to use xshbar, see https://speedie.gq/xshbar.html" ;; 
+esac
+
+XSHBAR_DIE()
+{
+  XSH_VAR_HASSTARTED=false && exit 1 # Failed exit.
+}
+
+XSHBAR_END()
+{
+  XSH_VAR_HASSTARTED=false && exit 0 # Successful exit
+}
+
+XSHBAR_CHECK_DEP()
+{
+  ls $XSHBAR_BIN_DIR/xsetroot > /dev/null || XSHBAR_DIE
+}
+
+# Check to make sure every dependency is installed.
+XSHBAR_CREATE_DOTDIR_ENV
+XSHBAR_INIT || XSHBAR_DIE
+XSHBAR_SOURCE || XSHBAR_DIE
+XSHBAR_CHECK_DEP || XSHBAR_DIE
+
+XSHBAR_SET_ROOT()
+{
+  XSHBAR_IMPORT
+  . ~/.config/xshbar/prn
+  XSHBAR_CORE_PRINT=$(echo $XSHBAR_CORE_DISPLAY)
+  xsetroot -name "$XSHBAR_CORE_PRINT" || XSHBAR_DIE
+  sleep $UPDATEFREQ || XSHBAR_DIE
+  XSHBAR_SET_ROOT || XSHBAR_DIE
+}
+
+XSHBAR_SET_ROOT
+XSHBAR_END
