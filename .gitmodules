@@ -1,0 +1,3 @@
+[submodule "wpa_supplicant_helper_"]
+	path = wpa_supplicant_helper_
+	url = https://github.com/Damaj301damaj-lol/wpa_supplicant_helper

@@ -4,37 +4,34 @@
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = { "terminus:size=9", "cozette:size=9" };
-static const char dmenufont[]       = "terminus:size=9";
+static const int topbar             = 1;        /* 0 means bottom bar */
+static const char *fonts[]          = { "monospace:size=10" };
+static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
-        /*                   fg         bg         border   */
-	[SchemeNorm]     = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]      = { col_gray4, col_cyan,  col_cyan  },
-        [SchemeTitle]    = { "#554433", "#FF4444", "#44FF44" },
-	[SchemeTitleSel] = { "#4444FF", "#884400", "#440044" }, 
+	/*               fg         bg         border   */
+	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
-
- static const char *statuscolors[][3] = {
-        /*                   fg         bg         border   */
-       [SchemeNorm]     = { col_gray3, col_gray1, col_gray2 },
-       [SchemeSel]      = { col_gray4, col_cyan,  col_cyan  },
-       [SchemeTitle]    = { "#554433", "#FF4444", "#44FF44" },
-       [SchemeTitleSel] = { "#4444FF", "#884400", "#440044" },
-};
-
-
-
-
-
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+static const char *tagsel[][2] = {
+	{ "#ffffff", "#ff0000" },
+	{ "#ffffff", "#ff7f00" },
+	{ "#000000", "#ffff00" },
+	{ "#000000", "#00ff00" },
+	{ "#ffffff", "#0000ff" },
+	{ "#ffffff", "#4b0082" },
+	{ "#ffffff", "#9400d3" },
+	{ "#000000", "#ffffff" },
+	{ "#ffffff", "#000000" },
+};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -100,7 +97,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask, XK_s, spawn, SHCMD("cd ~/Screenshots && rm -rf ~/Screenshots/.TempScreenshot.png && scrot '.TempScreenshot.png' -s -b -p -q 100 && xclip -in -selection clipboard -target image/png ~/Screenshots/.TempScreenshot.png && killall scrot") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)

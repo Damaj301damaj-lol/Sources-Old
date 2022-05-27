@@ -5,29 +5,33 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = { "terminus:size=9", "cozette:size=9" };
-static const char dmenufont[]       = "terminus:size=9";
+static const char *fonts[]          = { "terminus:size=8" };
+static const char dmenufont[]       = "terminus:size=8";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
-        /*                   fg         bg         border   */
-	[SchemeNorm]     = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]      = { col_gray4, col_cyan,  col_cyan  },
-        [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+	/*               fg         bg         border   */
+	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
 
-
-
-
-
-
-
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+static const char *tagsel[][2] = {
+	{ "#ffffff", "#fd7717" },
+	{ "#ffffff", "#fd842e" },
+	{ "#ffffff", "#fd9245" },
+	{ "#ffffff", "#fd9f5c" },
+	{ "#000000", "#fdad73" },
+	{ "#000000", "#febb8b" },
+	{ "#000000", "#fec8a2" },
+	{ "#000000", "#fed6b9" },
+	{ "#000000", "#fee3d0" },
+};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -93,7 +97,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask, XK_s, spawn, SHCMD("cd ~/Screenshots && rm -rf ~/Screenshots/.TempScreenshot.png && scrot '.TempScreenshot.png' -s -b -p -q 100 && xclip -in -selection clipboard -target image/png ~/Screenshots/.TempScreenshot.png && killall scrot") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
