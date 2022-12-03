@@ -7,18 +7,20 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "terminus:size=10" };
 static const char dmenufont[]       = "terminus:size=8";
-static const char col_gray1[]  = "#179dfd";
+//static const char col_gray1[]  = "#179dfd";
+static const char col_gray1[]  = "#222222"; 
 static const char col_gray2[]  = "#1c1c1c";
 static const char col_gray3[]  = "#403f3f";
 static const char col_gray4[]  = "#666560";
 static const char col_dmenu1[]      = "#FD7717";
 static const char col_dmenu2[]      = "#ffffff";
-static const char col_dmenu3[]      = "#000000";
-static const char col_cyan[]        = "#179dfd";
+static const char col_dmenu3[]      = "#ffffff";
+//static const char col_cyan[]        = "#179dfd";
+static const char col_cyan[]        = "#222222";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { col_dmenu2, col_cyan, col_cyan },
+	[SchemeSel]  = { col_dmenu2, col_cyan,  col_dmenu2  },
 };
 
 /* tagging */
@@ -26,14 +28,14 @@ static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const char *tagsel[][2] = {
 	{ "#ffffff", "#fd7717" },
-	{ "#ffffff", "#fd842e" },
-	{ "#ffffff", "#fd9245" },
-	{ "#ffffff", "#fd9f5c" },
-	{ "#000000", "#fdad73" },
-	{ "#000000", "#febb8b" },
-	{ "#000000", "#fec8a2" },
-	{ "#000000", "#fed6b9" },
-	{ "#000000", "#fee3d0" },
+	{ "#ffffff", "#fd7718" },
+	{ "#ffffff", "#fd7719" },
+	{ "#ffffff", "#fd7720" },
+	{ "#ffffff", "#fd7721" },
+	{ "#ffffff", "#fd7722" },
+	{ "#ffffff", "#fd7723" },
+	{ "#ffffff", "#fd7724" },
+	{ "#ffffff", "#fd7725" },
 };
 
 static const Rule rules[] = {
@@ -72,9 +74,9 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_dmenu1, "-nf", col_dmenu2, "-sb", col_cyan, "-sf", col_dmenu3, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_dmenu2, "-sb", col_dmenu1, "-sf", col_dmenu2, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *takess[] = { "takess", NULL };
+static const char *takess[] = { "speedwm-screenshotutil -s -f 5", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
